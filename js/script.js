@@ -1,5 +1,5 @@
 //Create an array of objects for the card's properties
-const card = {
+const card = [{
     //"Index" of the card
     id: 1,
     //Card name
@@ -64,7 +64,128 @@ const card = {
         color: 'Red',
         pattern: '..img/background_pattern.jpg'
     }
-};
+},
+{
+    id: 2,
+    name: 'Fist of the Demigod',
+    manaCost: ['1', 'B/', 'R'],
+    convertedManaCost: 2,
+    illustration: {
+        author: {
+            id: 2,
+            fullName: 'Dan Scott'
+        },
+        source: '..img/pic.jpg'
+    },
+    type: 'Enchantment',
+    subType: 'Aura',
+    expansion: {
+        reprintId: 7,
+        name: 'Wing',
+        rarity: 'Common',
+        collectionNr: 183,
+        totalCard: 311
+    },
+    abilities: [
+        {
+            manaCost: [],
+            description: 'Enchant creature. As long as enchanted creature is black, it gets +1/+1 and has wither. (It deals damage to creature in the front of -1/-1 counters). As long as enchanted creature is red it gets +1/+1 and has first strike.'
+        }
+    ],
+    flavorText: {
+        quote: '',
+        author: ''
+    },
+    strength: '',
+    constitution: '',
+    borderColor: '#000',
+    background:
+    {
+        color: 'Red/Black',
+        pattern: '..img/background_pattern.jpg'
+    }
+},
+{
+    id: 3,
+    name: 'Hogaak, Arisen Necropolis',
+    manaCost: ['5', 'B/G', 'B/G'],
+    convertedManaCost: 7,
+    illustration: {
+        author: {
+            id: 3,
+            fullName: 'Vincent Proce'
+        },
+        source: '..img/pic.jpg'
+    },
+    type: 'Legendary Creature',
+    subType: 'Avatar',
+    expansion: {
+        reprintId: 6,
+        name: 'Bat',
+        rarity: 'Rare',
+        collectionNr: 202,
+        totalCard: 254
+    },
+    abilities: [
+        {
+            manaCost: [],
+            description: "You can't spend mana to cast this spell. Convoke, delve (Each creature you tap while casting this spell pays for 1 or one more mana of that creature's color. Each card you exile from your graveyard pays for 1. You may cast Hogaak, Arisen Necropolis from your graveyard. Trample."
+        }
+    ],
+    flavorText: {
+        quote: '',
+        author: ''
+    },
+    strength: 8,
+    constitution: 8,
+    borderColor: '#000',
+    background:
+    {
+        color: 'Black/Green',
+        pattern: '..img/background_pattern.jpg'
+    }
+},
+{
+    id: 4,
+    name: 'Presence of Gond',
+    manaCost: ['2', 'G'],
+    convertedManaCost: 3,
+    illustration: {
+        author: {
+            id: 4,
+            fullName: 'Brandon Kitkouski'
+        },
+        source: '..img/pic.jpg'
+    },
+    type: 'Enchantment',
+    subType: 'Aura',
+    expansion: {
+        reprintId: 6,
+        name: 'Bat',
+        rarity: 'Common',
+        collectionNr: 125,
+        totalCard: 311
+    },
+    abilities: [
+        {
+            manaCost: [],
+            description: 'Enchant creature. Enchanted creature has "Tap": Put a 1/1 green Elf Warrior creature token into play.'
+        }
+    ],
+    flavorText: {
+        quote: 'Here lies Gond, hero of Safehold Taldwen. May he ever guide our quest.',
+        author: 'None'
+    },
+    strength: '',
+    constitution: '',
+    borderColor: '#000',
+    background:
+    {
+        color: 'Green',
+        pattern: '..img/background_pattern.jpg'
+    }
+}
+]
 
 
 // Print on page
