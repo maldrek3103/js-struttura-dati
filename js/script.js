@@ -1,5 +1,5 @@
 //Create an array of objects for the card's properties
-const card = [{
+const fullDeck = [{
     //"Index" of the card
     id: 1,
     //Card name
@@ -187,66 +187,125 @@ const card = [{
 }
 ]
 
-
-// Print on page
-const cardSection = document.getElementById('cards');
-
-//Condition that verifies if there is a card sub type
-const subType = card.subType ? ` - ${card.subType}` : '';
-
 //Ability default (not all the cards have abilities)
 let abilitiesContent = "<em>No abilities</em>";
 
 //Condition that verifies if there is/are ability/abilities
-if (card.abilities.length) {
-    abilitiesContent = '<ul>';
-    for (let i = 0; i < card.abilities.length; i++) {
-        const currentAbility = card.abilities[i];
-        abilitiesContent += `<li><strong>Mana cost:</strong> ${currentAbility.manaCost.join(', ')}</li>`;
-        abilitiesContent += `<li><strong>Description:</strong> ${currentAbility.description}</li>`;
+for (let j = 0; j < fullDeck.length; j++) {
+    if (fullDeck[j].abilities.length) {
+        abilitiesContent = '<ul>';
+        for (let i = 0; i < fullDeck[i].abilities.length; i++) {
+            const currentAbility = fullDeck[i].abilities[i];
+            abilitiesContent += `<li><strong>Mana cost:</strong> ${currentAbility.manaCost.join(', ')}</li>`;
+            abilitiesContent += `<li><strong>Description:</strong> ${currentAbility.description}</li>`;
+        }
+        abilitiesContent += '</ul>';
     }
-    abilitiesContent += '</ul>';
 }
 
-//General card structure 
-let cardTemplate = `
-<ul class="card"> 
-    <li><strong>Card ID:</strong> ${card.id}</li>
-    <li><strong>Name:</strong> ${card.name}</li>
-    <li><strong>Mana cost:</strong> ${card.manaCost.join(', ')}</li>
-    <li><strong>CMC (Converted Mana Cost):</strong> ${card.convertedManaCost}</li>
-    <li><strong>Illustration:</strong> 
+const createCardTemplate = (card) => {
+    for (let i = 0; i < fullDeck.length; i++) {
+        `<ul class="card"> 
+        <li><strong>Card ID:</strong> ${card.id}</li>
+        <li><strong>Name:</strong> ${card.name}</li>
+        <li><strong>Mana cost:</strong> ${card.manaCost.join(', ')}</li>
+        <li><strong>CMC (Converted Mana Cost):</strong> ${card.convertedManaCost}</li>
+        <li><strong>Illustration:</strong> 
+            <ul>
+                <li><strong>Author:</strong> ${card.illustration.author.fullName} (ID: ${card.illustration.author.id})</li>
+                <li><strong>Illustration link:</strong> ${card.illustration.source}</li>
+            </ul>
+        </li>
+        <li><strong>Card type:</strong> ${card.type} ${card.subType}</li >
+        <li><strong>Expansion:</strong> 
         <ul>
-            <li><strong>Author:</strong> ${card.illustration.author.fullName} (ID: ${card.illustration.author.id})</li>
-            <li><strong>Illustration link:</strong> ${card.illustration.source}</li>
+        <li><strong>Reprint:</strong> ${card.expansion.reprintId}</li>
+        <li><strong>Name:</strong> ${card.expansion.name}</li>
+        <li><strong>Rarity:</strong> ${card.expansion.rarity}</li>
+        <li><strong>Collection number:</strong> ${card.expansion.collectionNr}/${card.expansion.totalCard}</li>
         </ul>
-    </li>
-    <li><strong>Card type:</strong> ${card.type} ${subType}</li >
-    <li><strong>Expansion:</strong> 
-        <ul>
-            <li><strong>Reprint:</strong> ${card.expansion.reprintId}</li>
-            <li><strong>Name:</strong> ${card.expansion.name}</li>
-            <li><strong>Rarity:</strong> ${card.expansion.rarity}</li>
-            <li><strong>Collection number:</strong> ${card.expansion.collectionNr}/${card.expansion.totalCard}</li>
-        </ul>
-    </li>
-    <li><strong>Ability/Abilities:</strong> ${abilitiesContent}</li>
-    <li><strong>Flavor text:</strong>
+        </li>
+        <li><strong>Ability/Abilities:</strong> ${abilitiesContent}</li>
+        <li><strong>Flavor text:</strong>
         <ul>
         <li><strong>Quote:</strong> <em>${card.flavorText.quote}</em></li>
         <li><strong>Author:</strong> <em>${card.flavorText.author}</em></li>
         </ul>
-    </li>
-    <li><strong>Constitution:</strong> ${card.constitution}</li>
-    <li><strong>Strength:</strong> ${card.strength}</li>
-    <li><strong>Border color:</strong> ${card.borderColor}</li>
-    <li><strong>Background:</strong>
+        </li>
+        <li><strong>Constitution:</strong> ${card.constitution}</li>
+        <li><strong>Strength:</strong> ${card.strength}</li>
+        <li><strong>Border color:</strong> ${card.borderColor}</li>
+        <li><strong>Background:</strong>
         <ul>
-            <li><strong>Color:</strong> ${card.background.color}</li>
-            <li><strong>Pattern:</strong> ${card.background.pattern}</li>
+        <li><strong>Color:</strong> ${card.background.color}</li>
+        <li><strong>Pattern:</strong> ${card.background.pattern}</li>
         </ul>
-    </li>
- </ul > `;
+        </li>
+     </ul >`;
+    }
+}
+// Print on page
+const cardSection = document.getElementById('cards');
+
+
+//Condition that verifies if there is a card sub type
+const subType = fullDeck.subType ? ` - ${fullDeck.subType}` : '';
+
+const renderDeck = (deck, targetElement) => {
+    let deckTemplate = '';
+    for (let i = 0; i < deck.length; i++) {
+        const currentCard = deck[i];
+        const currentCardTemplate = createCardTemplate(currentCard);
+        deckTemplate += currentCardTemplate;
+    }
+    targetElement.innerHTML = deckTemplate;
+};
 
 //Prints card template on page
-cardSection.innerHTML = cardTemplate;
+
+renderDeck(fullDeck, cardSection);
+
+//Filters
+const inputField = document.getElementById('search');
+const selectField = document.getElementById('filter');
+const button = document.getElementById('button');
+
+selectField.addEventListener('change', () => {
+    const currentValue = selectField.value;
+
+    if (currentValue !== 'all') {
+        inputField.classList.remove('hidden');
+    } else {
+        inputField.classList.add('hidden');
+    }
+});
+
+button.addEventListener('click', () => {
+    const inputValue = inputField.value;
+    const selectValue = selectField.value;
+
+    if (selectValue === 'all') {
+        renderDeck(fullDeck, cardSection);
+        return;
+    }
+
+    const filteredDeck = [];
+    for (let i = 0; i < fullDeck.length; i++) {
+        const currentCard = fullDeck[i];
+        switch (selectValue) {
+            case 'id':
+            case 'constitution':
+            case 'strength':
+            case 'convertedManaCost':
+                if (currentCard[selectValue] == inputValue) {
+                    filteredDeck.push(currentCard);
+                }
+                break;
+            default:
+                if (currentCard[selectValue].includes(inputValue)) {
+                    filteredDeck.push(currentCard);
+                }
+        }
+    }
+});
+cardSection.innerHTML = renderDeck(fullDeck, cardSection);;

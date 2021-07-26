@@ -13,9 +13,22 @@
 
 <body>
 
-    <section id="cards">
 
-    </section>
+    <select id="filter">
+        <option value="all">Tutto</option>
+        <option value="id">ID</option>
+        <option value="name">Nome</option>
+        <option value="convertedManaCost">Mana convertito</option>
+        <option value="cardType">Tipo carta</option>
+        <option value="subType">Sottotipo carta</option>
+        <option value="constitution">Costituzione</option>
+        <option value="strength">Forza</option>
+    </select>
+
+    <input type="text" id="search" placeholder="Valore..." class="hidden">
+    <button id="button">Filtra</button>
+    <hr>
+    <section id="cards"></section>
 
     <script src="./js/script.js"></script>
 </body>
